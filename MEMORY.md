@@ -156,5 +156,17 @@ lark-cli sheets +write --spreadsheet-token OrXrsyBHAh4BJrtMQEEcjuhfnmd --sheet-i
 3. **日期格式**: 飞书表格使用Excel日期数字（46082.1 = 2026/3/25，46083.1 = 2026/3/26，以此类推）
 4. **定时任务会话**: 创建cron任务时必须使用 `sessionTarget: "main"`，禁止使用 `isolated`（独立会话没有浏览器登录状态）
 
+## Agent工程化学习笔记（Claude Code架构分析）
+### 核心观点
+- **Harness架构**：Agent的"Body"（工具+记忆+编排）比"Brain"（模型）更重要
+- **TAOR循环**：Think-Act-Observe-Repeat，运行时越笨越好，智能下沉到模型，确定性留给框架
+- **四类原语**：Read、Write、Execute、Connect，不要构建100个工具，给模型shell让它自己组合
+- **Context管理**：稀缺资源，越干净越好，不是越大越好
+- **记忆是索引，不是存储**：能从代码库推导的信息不要存储
+
+### 启发
+1. 工具不在多，在于可组合
+2. 记忆要定期整理，过期信息是"负债"
+3. 权限设计是UX问题，不是单纯的安全问题
 ---
-*最后更新: 2026-03-31 16:04*
+*最后更新: 2026-04-02 11:03*
