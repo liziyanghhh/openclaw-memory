@@ -154,6 +154,7 @@ lark-cli sheets +write --spreadsheet-token OrXrsyBHAh4BJrtMQEEcjuhfnmd --sheet-i
 1. **lark-cli 安装问题**: 原始npm安装会从GitHub下载二进制文件，中国网络可能超时。需要手动下载zip文件解压安装
 2. **写入命令转义**: Windows命令行中JSON参数转义复杂，建议使用.bat批处理文件
 3. **日期格式**: 飞书表格使用Excel日期数字（46082.1 = 2026/3/25，46083.1 = 2026/3/26，以此类推）
+4. **定时任务会话**: 创建cron任务时必须使用 `sessionTarget: "main"`，禁止使用 `isolated`（独立会话没有浏览器登录状态）
 
 ---
 *最后更新: 2026-03-31 16:04*
