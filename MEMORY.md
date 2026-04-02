@@ -156,15 +156,17 @@ lark-cli sheets +write --spreadsheet-token OrXrsyBHAh4BJrtMQEEcjuhfnmd --sheet-i
 3. **日期格式**: 飞书表格使用Excel日期数字（46082.1 = 2026/3/25，46083.1 = 2026/3/26，以此类推）
 4. **定时任务会话**: 创建cron任务时必须使用 `sessionTarget: "main"`，禁止使用 `isolated`（独立会话没有浏览器登录状态）
 
-## 小红书聚光平台工作流程（新账号：大连逸程/INNN大阪）
+## 小红书聚光平台工作流程（账号：大连逸程/INNN大阪）
 
 ### 合作伙伴平台登录
-1. 打开 https://partner.xiaohongshu.com/login
+1. 打开 https://partner.xiaohongshu.com/login?service=https%3A%2F%2Fpartner.xiaohongshu.com%2Fpartner%2FsubAccount-list
 2. 账号：liwenxuan@slsqad.com，密码：LWXlwx0229@
 3. 登录后自动跳转"子账户列表"
-4. 搜索"INNN大阪机场接送" → 选择"YX--INNN大阪机场接送"
-5. 点击"查询" → 点击该账号末尾"跳转"蓝色字体
-6. 选择"聚光平台" → 自动跳转到广告平台（新标签页）
+4. 在子账号名称搜索框输入"INNN大阪机场接送"
+5. 下拉选择"YX--INNN大阪机场接送"
+6. 点击"查询"按钮 → 在列表中找到该账号
+7. 点击该账号末尾蓝色"跳转"字体
+8. 在弹出框选择"聚光平台" → 自动跳转到广告平台（新标签页）
 
 ### 目标账号信息
 - **子账号**：YX--INNN大阪机场接送
@@ -177,11 +179,18 @@ lark-cli sheets +write --spreadsheet-token OrXrsyBHAh4BJrtMQEEcjuhfnmd --sheet-i
 2. 设置日期（分日筛选）→ 选择目标日期
 3. 页面顶部"合计"行（加粗）= 当日汇总数据
 
-### 飞书表格（INNN大版协作表 - 26年4月）
-- Token: B63SwbWKCiILFzkhR5fcBdtDnTh
-- Sheet ID: vrYnBm
-- Wiki: https://xayub55x0kw.feishu.cn/wiki/B63SwbWKCiILFzkhR5fcBdtDnTh
-- 行号：4月1日=46113=第2行，4月2日=46114=第3行
+### 飞书表格（INNN交通出行（海外）协作表 副本）
+- **Token**: OrXrsyBHAh4BJrtMQEEcjuhfnmd
+- **Sheet名**: 4月
+- **Sheet ID**: JXJwuc
+- **Wiki**: https://xayub55x0kw.feishu.cn/wiki/Rauaw47WMiX35jkKUPtcJyLwnfe
+- **数据行**: 第2行起（4月1日=46113=第2行，4月2日=46114=第3行）
+
+### 写入命令
+使用.bat批处理文件（如 write_row_innn.bat）：
+```batch
+lark-cli sheets +write --spreadsheet-token OrXrsyBHAh4BJrtMQEEcjuhfnmd --sheet-id JXJwuc --range "JXJwuc!A3:U3" --values "[[46113.1,2038.68,20893,807,0.0386,2.53,97.58,0,0,0,0,87,23.43,51,39.97,36,56.63,99,11,185.33,0]]"
+```
 
 ## Agent工程化学习笔记（Claude Code架构分析）
 ### 核心观点

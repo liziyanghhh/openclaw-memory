@@ -1,0 +1,2 @@
+@echo off
+lark-cli sheets +write --spreadsheet-token XyjTsl2NlhFDXJtE0decOa0hn8d --sheet-id a876fd --range A3:V3 --values [[46083.1,2322.93,27023,1237,0.0458,1.88,85.96,55,4,32,14,133,17.47,77,30.17,55,42.24,145,7,331.85,77]]

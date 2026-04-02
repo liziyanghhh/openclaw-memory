@@ -1,0 +1,14 @@
+{
+  "app_id": "cli_a949f94b0ffa9bc2",
+  "app_secret": "AL22hFMXmxOnsL6kxq68ygvfv37d1EVW",
+  "permissions": [
+    "wiki:wiki",
+    "wiki:wiki:readonly",
+    "wiki:space:retrieve",
+    "bitable:app",
+    "bitable:app:readonly",
+    "drive:drive",
+    "drive:drive:readonly"
+  ],
+  "auth_url": "https://open.feishu.cn/open-apis/authen/v1/authorize?app_id=cli_a949f94b0ffa9bc2&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Foauth%2Fcallback&state=wiki-auth"
+}

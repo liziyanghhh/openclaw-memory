@@ -1,0 +1,18 @@
+{
+  "access_token": "u-7UJxDBVnJ57r8425bAvhEa15lqXMg5UjWE0a2MG00wsQ",
+  "avatar_big": "https://s3-imfile.feishucdn.com/static-resource/v1/default-avatar_v3_00nv_f6d92d82-6e2f-4e51-8c5c-8e02b570d7ag~?image_size=640x640&cut_type=&quality=&format=image&sticker_format=.webp",
+  "avatar_middle": "https://s1-imfile.feishucdn.com/static-resource/v1/default-avatar_v3_00nv_f6d92d82-6e2f-4e51-8c5c-8e02b570d7ag~?image_size=240x240&cut_type=&quality=&format=image&sticker_format=.webp",
+  "avatar_thumb": "https://s3-imfile.feishucdn.com/static-resource/v1/default-avatar_v3_00nv_f6d92d82-6e2f-4e51-8c5c-8e02b570d7ag~?image_size=72x72&cut_type=&quality=&format=image&sticker_format=.webp",
+  "avatar_url": "https://s3-imfile.feishucdn.com/static-resource/v1/default-avatar_v3_00nv_f6d92d82-6e2f-4e51-8c5c-8e02b570d7ag~?image_size=72x72&cut_type=&quality=&format=image&sticker_format=.webp",
+  "en_name": "用户668495",
+  "expires_in": 6900,
+  "name": "用户668495",
+  "open_id": "ou_7452d38af2349d37cbfd5ae260e68175",
+  "refresh_expires_in": 2591700,
+  "refresh_token": "ur-6QE8GVbyd1OHBAaB_2QoHh15nqrgg5MrX80aixK00wpB",
+  "sid": "AAAAAAAAAABpu45QgICL0Q==",
+  "tenant_key": "1ac2664d18481c95",
+  "token_type": "Bearer",
+  "union_id": "on_183bd597a84034e143d50bdf232f9063",
+  "user_id": "58419f7g"
+}
