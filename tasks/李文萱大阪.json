@@ -1,0 +1,16 @@
+{
+  "taskName": "李文萱大阪",
+  "taskId": "6e1b3029-c53e-4aa0-ab50-051be84d5707",
+  "schedule": "08:30 每天",
+  "target": "YX--INNN大阪机场接送",
+  "accountId": "685918cfbc08dd00153675b3",
+  "spreadsheet": {
+    "wiki": "https://xayub55x0kw.feishu.cn/wiki/B63SwbWKCiILFzkhR5fcBdtDnTh?sheet=vrYnBm",
+    "sheetId": "vrYnBm"
+  },
+  "createdAt": "2026-04-02",
+  "status": "active",
+  "lastRun": null,
+  "lastResult": null,
+  "notes": []
+}

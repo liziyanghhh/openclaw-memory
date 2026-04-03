@@ -1,0 +1,15 @@
+{
+  "taskName": "李文萱交通",
+  "taskId": "d8066a45-9b0f-4052-9b7e-b80a0c82ac69",
+  "schedule": "08:00 每天",
+  "target": "innntravel007@gmail.com",
+  "spreadsheet": {
+    "wiki": "https://xayub55x0kw.feishu.cn/wiki/DuyywOXW5iPUAbk2JWOcKq1RnSe",
+    "sheetId": "nfuwzz"
+  },
+  "createdAt": "2026-04-02",
+  "status": "active",
+  "lastRun": null,
+  "lastResult": null,
+  "notes": []
+}
