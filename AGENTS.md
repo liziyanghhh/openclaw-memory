@@ -224,15 +224,15 @@ This is a starting point. Add your own conventions, style, and rules as you figu
 
 #### 账号清单
 
-**李文萱交通**
+**李文萱交通**（写入 → 交通出行表）
 - 平台：https://ad.xiaohongshu.com/
 - 账号：innntravel007@gmail.com / aladdinA07
-- 飞书 Token：DuyywOXW5iPUAbk2JWOcKq1RnSe / sheet-id: nfuwzz
+- 飞书 Token：DuyywOXW5iPUAbk2JWOcKq1RnSe / sheet-id: nfuwzz（交通出行表）
 
-**李文萱大阪**
+**李文萱大阪**（写入 → 大阪表）
 - 平台：https://partner.xiaohongshu.com/ → 子账户 YX--INNN大阪机场接送 → 聚光平台
 - 账号：liwenxuan@slsqad.com / LWXlwx0229@
-- 飞书 Token：OrXrsyBHAh4BJrtMQEEcjuhfnmd / sheet-id: JXJwuc
+- 飞书 Token：OrXrsyBHAh4BJrtMQEEcjuhfnmd / sheet-id: JXJwuc（大阪表）
 
 #### 关键规则
 - **点击率必须除以100**：平台显示5.37%，写入用0.0537
