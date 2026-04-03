@@ -199,3 +199,58 @@ This is a starting point. Add your own conventions, style, and rules as you figu
 - 待解决事项
 
 这样重启后可以快速恢复上下文。
+
+---
+
+## 常驻任务（Standing Orders）
+
+### Program 1: 小红书广告数据抓取
+
+**权限：** 抓取前一天小红书广告数据，填入飞书表格
+**触发：** Cron job 每天 08:00（李文萱交通）和 08:30（李文萱大阪）
+**审批门槛：** 无，数据自动写入，异常才上报
+
+#### 执行前必读
+先读取 `playbooks/小红书-李文萱交通.md` 或 `playbooks/小红书-李文萱大阪.md`，按 playbook 步骤执行，不跳步骤。
+
+#### 执行步骤（每个账号）
+1. 计算目标日期 = 今天 - 1天
+2. 计算目标行号 = Excel日期 - 46111
+3. 打开对应平台，抓取前一天合计行数据
+4. 检查数据逻辑（消费=展现量×点击率等）
+5. 用 lark-cli 写入飞书表格（创建 .bat 文件执行）
+6. 验证 revision 号变化确认写入成功
+7. 如执行失败：重试1次，仍失败则记录错误并上报
+
+#### 账号清单
+
+**李文萱交通**
+- 平台：https://ad.xiaohongshu.com/
+- 账号：innntravel007@gmail.com / aladdinA07
+- 飞书 Token：DuyywOXW5iPUAbk2JWOcKq1RnSe / sheet-id: nfuwzz
+
+**李文萱大阪**
+- 平台：https://partner.xiaohongshu.com/ → 子账户 YX--INNN大阪机场接送 → 聚光平台
+- 账号：liwenxuan@slsqad.com / LWXlwx0229@
+- 飞书 Token：OrXrsyBHAh4BJrtMQEEcjuhfnmd / sheet-id: JXJwuc
+
+#### 关键规则
+- **点击率必须除以100**：平台显示5.37%，写入用0.0537
+- **大阪账号：搜索框必须点击下拉选项**，只输入文字不过滤
+- **A列日期必须带.1后缀**：如 46114.1
+- 写入用 .bat 批处理文件，不直接在命令行执行
+
+#### 禁止事项
+- 不修改 playbook 中定义的账号密码
+- 不跳过数据验证步骤
+- 不向飞书表格写入未经核实的数据
+
+---
+
+### Execute-Verify-Report 规则（所有任务适用）
+
+1. **Execute** — 做实际工作，不是只说"好的"
+2. **Verify** — 确认结果正确（写入成功/revision变化/数据核对）
+3. **Report** — 汇报做了什么 + 验证结果
+
+失败处理：最多重试3次，仍失败则记录 + 上报，从不静默失败。
