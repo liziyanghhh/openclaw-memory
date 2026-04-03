@@ -238,16 +238,16 @@ This is a starting point. Add your own conventions, style, and rules as you figu
 - 飞书 Token：OrXrsyBHAh4BJrtMQEEcjuhfnmd / sheet-id: JXJwuc（大阪表）
 
 **李文萱包易**（写入 → 包易二奢入门陪跑表）
-- 平台：https://partner.xiaohongshu.com/ → 搜索"包易二奢" → 对应子账户 → 聚光平台
+- 平台：https://partner.xiaohongshu.com/ → 搜索"包易二奢入门陪跑" → YX-包易二奢入门陪跑 → 聚光平台
 - 账号：liwenxuan@slsqad.com / LWXlwx0229@
-- 飞书 Token：M4Spsd0CGh0hh5tyae4cXdhWnRb / sheet-id: KlQEFs（基础报表写入表）
-- 包易额外步骤：基础报表写入后，还需下载笔记报表Excel → 覆盖到「2026笔记投放数据」子表
-  1. 基础报表写入 KlQEFs 后，同一标签页继续
-  2. 左侧导航 → 基础报表 → 笔记报表
-  3. 日期设为3月1日至昨天，确认「汇总」筛选
-  4. 找到数据明细行右侧向下箭头图标 → 点击下载
-  5. 打开下载的Excel → 全选复制
-  6. 切换到飞书「2026笔记投放数据」子表 → 粘贴覆盖
+- 飞书 Token：M4Spsd0CGh0hh5tyae4cXdhWnRb
+- 基础报表写入 → sheet-id: JLrqHb（「26年4月」子表）
+- 笔记报表覆盖 → sheet-id: KlQEFs（「2026笔记投放数据」子表）
+- 包易额外步骤：
+  1. 基础报表数据 → JLrqHb（「26年4月」）
+  2. 笔记报表下载Excel → 覆盖到 KlQEFs（「2026笔记投放数据」）
+  3. 左侧导航 → 基础报表 → 笔记报表 → 日期3/1至昨天 → 汇总筛选 → 下载
+  4. 打开下载Excel → 全选复制 → 粘贴到 KlQEFs
 
 #### 浏览器自动化关键规则
 - **登录时**：先检查是否有协议复选框，有则勾选，再点登录；没有则直接登录

@@ -4,14 +4,14 @@
   "schedule": "08:15 每天",
   "target": "YX-包易二奢入门陪跑",
   "spreadsheet": {
-    "wiki": "https://xayub55x0kw.feishu.cn/wiki/V2MDwr8Rki9DLGkLoRlc7Kpwnlc?sheet=KlQEFs",
+    "wiki": "https://xayub55x0kw.feishu.cn/wiki/V2MDwr8Rki9DLGkLoRlc7Kpwnlc",
     "token": "M4Spsd0CGh0hh5tyae4cXdhWnRb",
-    "sheetId": "KlQEFs",
-    "noteSheetId": "2026笔记投放数据（子表名，需确认）"
+    "noteSheetId": "KlQEFs",
+    "aprilSheetId": "JLrqHb"
   },
   "createdAt": "2026-04-03",
   "status": "active",
   "lastRun": null,
   "lastResult": null,
-  "notes": ["基础报表写入KlQEFs", "笔记报表下载后覆盖到「2026笔记投放数据」子表"]
+  "notes": ["基础报表写入KlQEFs（2026笔记投放数据）", "笔记报表下载后覆盖到KlQEFs子表"]
 }
