@@ -216,11 +216,14 @@ This is a starting point. Add your own conventions, style, and rules as you figu
 #### 执行步骤（每个账号）
 1. 计算目标日期 = 今天 - 1天
 2. 计算目标行号 = Excel日期 - 46111
-3. 打开对应平台，抓取前一天合计行数据
-4. 检查数据逻辑（消费=展现量×点击率等）
-5. 用 lark-cli 写入飞书表格（创建 .bat 文件执行）
-6. 验证 revision 号变化确认写入成功
-7. 如执行失败：重试1次，仍失败则记录错误并上报
+3. 打开对应平台，登录
+4. 登录时检查是否有协议复选框 — 有则勾选，再点登录
+5. 登录后检查是否有弹窗 — 有则关闭或忽略
+6. 抓取前一天合计行数据
+7. 检查数据逻辑（消费=展现量×点击率等）
+8. 用 lark-cli 写入飞书表格（创建 .bat 文件执行）
+9. 验证 revision 号变化确认写入成功
+10. 如执行失败：重试1次，仍失败则记录错误并上报
 
 #### 账号清单
 
@@ -234,7 +237,9 @@ This is a starting point. Add your own conventions, style, and rules as you figu
 - 账号：liwenxuan@slsqad.com / LWXlwx0229@
 - 飞书 Token：OrXrsyBHAh4BJrtMQEEcjuhfnmd / sheet-id: JXJwuc（大阪表）
 
-#### 关键规则
+#### 浏览器自动化关键规则
+- **登录时**：先检查是否有协议复选框，有则勾选，再点登录；没有则直接登录
+- **登录后**：检查是否有弹窗，有则关闭（点×）或暂时忽略
 - **点击率必须除以100**：平台显示5.37%，写入用0.0537
 - **大阪账号：搜索框必须点击下拉选项**，只输入文字不过滤
 - **A列日期必须带.1后缀**：如 46114.1
@@ -244,6 +249,8 @@ This is a starting point. Add your own conventions, style, and rules as you figu
 - 不修改 playbook 中定义的账号密码
 - 不跳过数据验证步骤
 - 不向飞书表格写入未经核实的数据
+- 不忽略登录时的协议复选框
+- 不遗漏登录后的弹窗处理
 
 ---
 
