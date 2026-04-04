@@ -235,7 +235,7 @@ This is a starting point. Add your own conventions, style, and rules as you figu
 **李文萱大阪**（写入 → 大阪表）
 - 平台：https://partner.xiaohongshu.com/ → 子账户 YX--INNN大阪机场接送 → 聚光平台
 - 账号：liwenxuan@slsqad.com / LWXlwx0229@
-- 飞书 Token：OrXrsyBHAh4BJrtMQEEcjuhfnmd / sheet-id: JXJwuc（大阪表）
+- 飞书 Token：`S0srseEAXhIfANt26ztcaKb1nLg` / sheet-id: `vrYnBm`（大阪表）
 
 **李文萱包易**（写入 → 包易二奢入门陪跑表）
 - 平台：https://partner.xiaohongshu.com/ → 搜索"包易二奢入门陪跑" → YX-包易二奢入门陪跑 → 聚光平台

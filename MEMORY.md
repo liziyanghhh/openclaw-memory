@@ -10,199 +10,97 @@
 - **飞书链接域**: wcnjaznqdu9b.feishu.cn
 - **认证状态**: 用户已登录授权 (有效期至 2026-04-07)
 
-## lark-cli 安装配置（重要！）
+## lark-cli 安装配置
 ### 安装位置
 - 主程序: `C:\Users\liziy\AppData\Roaming\npm\lark-cli.exe`
 - Skills: `C:\Users\liziy\.agents\skills\lark-*`
 
 ### lark-cli 常用命令
 ```bash
-# 查看认证状态
-lark-cli auth status
-
 # 读取表格数据
-lark-cli sheets +read --spreadsheet-token <token> --sheet-id <sheet-id>
+lark-cli sheets +read --spreadsheet-token <token> --sheet-id <sheet-id> --range <range>
 
-# 写入表格数据
-lark-cli sheets +write --spreadsheet-token <token> --sheet-id <sheet-id> --range "<range>" --values "<json>"
-
-# 读取wiki节点信息
-lark-cli wiki spaces get_node --params "{\"token\":\"<wiki_token>\"}"
+# 写入表格数据（用.bat批处理文件执行）
+lark-cli sheets +write --spreadsheet-token <token> --sheet-id <sheet-id> --range <range> --values <json>
 ```
 
-### 写入数据方法（重要！）
-由于命令行转义问题，使用批处理文件写入：
+### 写入数据方法
+由于命令行转义问题，必须使用.bat批处理文件：
 ```batch
 @echo off
 lark-cli sheets +write --spreadsheet-token <token> --sheet-id <sheet-id> --range "<range>" --values "<json>"
 ```
 
-## 重要文档
-- **知识库表格 "3.29"**
-  - Wiki链接: https://wcnjaznqdu9b.feishu.cn/wiki/COlywJDswiLqiTkfcywcOSWtn88
-  - Sheet Token: GOjmsTOcFhDSa2totIIcrl0bn5f
-  - Sheet ID: b12a4d
-  - 包含列: 时间、消费、展现量、点击量等21列
-  - 数据行: 第2行开始（第一行是表头）
+---
 
-### INNN交通出行（海外）协作表 副本
-- **Wiki链接**: https://xayub55x0kw.feishu.cn/wiki/Rauaw47WMiX35jkKUPtcJyLwnfe
-- **Sheet Token**: OrXrsyBHAh4BJrtMQEEcjuhfnmd
-- **包含4个子表**: 3月、2月、1月、12月
-- **字段架构（21列）**: 时间(A)、消费(B)、展现量(C)、点击量(D)、点击率(E)、平均点击成本(F)、平均千次展现费用(G)、点赞(H)、评论(I)、关注(J)、分享(K)、互动量(L)、平均互动成本(M)、私信进线数(N)、私信进线成本(O)、私信开口数(P)、私信开口成本(Q)、私信开口条数(R)、私信留资数(S)、私信留资成本(T)、多转化人数(U)
+## 三个小红书广告任务 — 飞书表格对应关系（重要！）
 
-#### 子表信息
-| 子表 | Sheet ID | 日期范围 |
-|------|----------|---------|
-| 3月 | Ylroom | 2026年3月1日~31日 |
-| 2月 | ncgV9z | 2026年2月1日~28日 |
-| 1月 | fEAIxr | 2026年1月1日~31日 |
-| 12月 | 0b1504 | 2025年12月1日~31日 |
+### ① 李文萱交通
+| 项目 | 值 |
+|------|-----|
+| Wiki | https://xayub55x0kw.feishu.cn/wiki/DuyywOXW5iPUAbk2JWOcKq1RnSe?sheet=nfuwzz |
+| Spreadsheet Token | `DuyywOXW5iPUAbk2JWOcKq1RnSe` |
+| Sheet ID | `nfuwzz` |
+| 账号入口 | https://ad.xiaohongshu.com/（直接登录，无需跳转） |
+| 子账户 | 无需搜索，直接是交通账号 |
+| vSellerId | （从URL直接读取） |
 
-#### 重要教训：日期格式与表头识别
-- **第一行是表头**，从第二行开始才是实际数据
-- **时间列是Excel日期数字**，需要根据表头含义解读
-- **日期推算规则**：
-  - 46010 = 2025年12月1日
-  - 46054 = 2026年2月1日
-  - 46082 = 2026年3月1日
-  - 46112 = 2026年3月31日
-- **月份与日期的关系**：不能只看子表名称，要根据第一行数据中的日期数字来确认实际年月
+### ② 李文萱大阪
+| 项目 | 值 |
+|------|-----|
+| Wiki | https://xayub55x0kw.feishu.cn/wiki/B63SwbWKCiILFzkhR5fcBdtDnTh?sheet=vrYnBm |
+| Spreadsheet Token | `S0srseEAXhIfANt26ztcaKb1nLg` |
+| Sheet ID | `vrYnBm` |
+| 账号入口 | https://partner.xiaohongshu.com/（需跳转聚光平台） |
+| 子账户搜索词 | "INNN大阪机场接送" |
+| 子账户选项 | YX--INNN大阪机场接送 |
+| vSellerId | `685918cfbc08dd00153675b3` |
 
-## 今日操作记录
+### ③ 李文萱包易
+| 项目 | 值 |
+|------|-----|
+| Wiki | https://xayub55x0kw.feishu.cn/wiki/V2MDwr8Rki9DLGkLoRlc7Kpwnlc |
+| Spreadsheet Token | `M4Spsd0CGh0hh5tyae4cXdhWnRb` |
+| Sheet ID（基础报表写入） | `JLrqHb`（「26年4月」子表） |
+| Sheet ID（笔记报表覆盖） | `KlQEFs`（「2026笔记投放数据」子表） |
+| 账号入口 | https://partner.xiaohongshu.com/（需跳转聚光平台） |
+| 子账户搜索词 | "包易二奢入门陪跑" |
+| 子账户选项 | YX-包易二奢入门陪跑 |
+| vSellerId | **待确认：需从跳转后的URL获取** |
 
-### 1. 删除3/25数据
-- **操作**: 清空了第2行（46082.1 = 3/25）的所有数据
-- **命令**: `write_row.bat` 写入21个空值到 A2:U2
-- **结果**: ✅ 成功
-
-### 2. 复制3/26数据到3/27
-- **操作**: 读取第3行（46083.1 = 3/26）的数据，写入到第4行（46084.1 = 3/27）
-- **命令**: `write_row.bat`
-- **结果**: ✅ 成功
-
-## 待解决任务
-- 无
+---
 
 ## 重要教训
-1. **当飞书插件工具（如 feishu_wiki、feishu_doc）无法完成操作时，直接用 exec 调用 lark-cli**
-2. 不要等用户来教，主动尝试调用 CLI 工具
-3. **操作优先级**：飞书插件工具 → lark-cli → 其他方式
 
-## 小红书广告数据 → 飞书表格 自动填写流程（重要！）
+### 1. Spreadsheet Token 不能混淆！
+- `S0srseEAXhIfANt26ztcaKb1nLg` = 大阪表（正确）
+- `OrXrsyBHAh4BJrtMQEEcjuhfnmd` = **废弃/错误的token**，曾导致大阪表数据混入交通数据
+- 每次写入前必须确认：当前任务的 token 是否与目标表格对应
 
-### 目标表格
-- **飞书表格**：`INNN交通出行（海外）协作表 副本`
-- Token: `OrXrsyBHAh4BJrtMQEEcjuhfnmd`
-- Wiki链接: https://xayub55x0kw.feishu.cn/wiki/Rauaw47WMiX35jkKUPtcJyLwnfe
-- Sheet名: `4月`
-- Sheet ID: `JXJwuc`
-- 数据范围：第2行起（A列=时间，其他列=指标）
+### 2. 跳转聚光平台后必须验证 vSellerId
+大阪/包易从 partner 点「跳转→聚光平台」后，新标签页的 vSellerId 可能没有切换。
+验证步骤：
+1. 跳转后立即读取 URL 中的 `vSellerId`
+2. 与预期值比对（大阪=685918cfbc08dd00153675b3）
+3. 不匹配则找到账户下拉菜单切换账号，或直接停止任务
 
-### 表头对应（21列）
-| 列 | 字段名 |
-|----|--------|
-| A | 时间 |
-| B | 消费 |
-| C | 展现量 |
-| D | 点击量 |
-| E | 点击率 |
-| F | 平均点击成本 |
-| G | 平均千次展现费用 |
-| H | 点赞 |
-| I | 评论 |
-| J | 关注 |
-| K | 分享 |
-| L | 互动量 |
-| M | 平均互动成本 |
-| N | 私信进线数 |
-| O | 私信进线成本 |
-| P | 私信开口数 |
-| Q | 私信开口成本 |
-| R | 私信开口条数 |
-| S | 私信留资数 |
-| T | 私信留资成本 |
-| U | 多转化人数（添加企微+私信咨询） |
+### 3. 日期格式
+- Excel日期：46113=4月1日，46114=4月2日，46115=4月3日
+- A列日期必须带.1后缀（如 46115.1）
+- 行号 = Excel日期 - 46111（如 46115 → 第4行）
 
-### 操作流程
-1. 打开浏览器访问 https://ad.xiaohongshu.com/
-2. 登录账号：innntravel007@gmail.com，密码：aladdinA07
-3. 点击顶部菜单"数据"
-4. 在左侧选择"标准投" → "基础报表"
-5. 在报表页面设置日期筛选（分日）
-6. 找到顶部"数据明细"区域的"合计"行（加粗行），这是当日汇总数据
-7. 读取各列数值
+### 4. 点击率格式
+- 平台显示5.37% → 写入用 0.0537（÷100）
 
-### 日期格式
-- 飞书表格A列使用Excel日期数字（如46113=4月1日）
-- 小红书平台使用"YYYY-MM-DD"格式
+### 5. lark-cli 安装问题
+原始npm安装会从GitHub下载二进制文件，中国网络可能超时。需要手动下载zip文件解压安装。
 
-### 写入命令
-使用.bat批处理文件写入（如 update_4_1.bat）：
-```batch
-lark-cli sheets +write --spreadsheet-token OrXrsyBHAh4BJrtMQEEcjuhfnmd --sheet-id JXJwuc --range "B2:U2" --values "[[1953.8,29733,843,\"2.84%\",2.32,65.71,27,2,26,10,84,23.26,57,34.28,41,47.65,83,2,976.9,0]]"
-```
+---
 
-### 注意事项
-- 未来如果用户指定其他日期，需要：
-  1. 先在飞书表格A列找到对应日期的行号
-  2. 修改日期筛选器到目标日期
-  3. 读取合计行的数据
-  4. 写入对应行
-
-## 注意事项
-1. **lark-cli 安装问题**: 原始npm安装会从GitHub下载二进制文件，中国网络可能超时。需要手动下载zip文件解压安装
-2. **写入命令转义**: Windows命令行中JSON参数转义复杂，建议使用.bat批处理文件
-3. **日期格式**: 飞书表格使用Excel日期数字（46082.1 = 2026/3/25，46083.1 = 2026/3/26，以此类推）
-4. **定时任务会话**: 创建cron任务时必须使用 `sessionTarget: "main"`，禁止使用 `isolated`（独立会话没有浏览器登录状态）
-
-## 小红书聚光平台工作流程（账号：大连逸程/INNN大阪）
-
-### 合作伙伴平台登录
-1. 打开 https://partner.xiaohongshu.com/login?service=https%3A%2F%2Fpartner.xiaohongshu.com%2Fpartner%2FsubAccount-list
-2. 账号：liwenxuan@slsqad.com，密码：LWXlwx0229@
-3. 登录后自动跳转"子账户列表"
-4. 在子账号名称搜索框输入"INNN大阪机场接送"
-5. 下拉选择"YX--INNN大阪机场接送"
-6. 点击"查询"按钮 → 在列表中找到该账号
-7. 点击该账号末尾蓝色"跳转"字体
-8. 在弹出框选择"聚光平台" → 自动跳转到广告平台（新标签页）
-
-### 目标账号信息
-- **子账号**：YX--INNN大阪机场接送
-- **广告主**：INNN大阪机场接送
-- **关联客户**：大连逸程旅行社有限公司
-- **子账号ID**：685918cfbc08dd00153675b3
-
-### 数据获取步骤
-1. 点击顶部"数据" → "标准投" → "基础报表"
-2. 设置日期（分日筛选）→ 选择目标日期
-3. 页面顶部"合计"行（加粗）= 当日汇总数据
-
-### 飞书表格（INNN交通出行（海外）协作表 副本）
-- **Token**: OrXrsyBHAh4BJrtMQEEcjuhfnmd
-- **Sheet名**: 4月
-- **Sheet ID**: JXJwuc
-- **Wiki**: https://xayub55x0kw.feishu.cn/wiki/Rauaw47WMiX35jkKUPtcJyLwnfe
-- **数据行**: 第2行起（4月1日=46113=第2行，4月2日=46114=第3行）
-
-### 写入命令
-使用.bat批处理文件（如 write_row_innn.bat）：
-```batch
-lark-cli sheets +write --spreadsheet-token OrXrsyBHAh4BJrtMQEEcjuhfnmd --sheet-id JXJwuc --range "JXJwuc!A3:U3" --values "[[46113.1,2038.68,20893,807,0.0386,2.53,97.58,0,0,0,0,87,23.43,51,39.97,36,56.63,99,11,185.33,0]]"
-```
-
-## Agent工程化学习笔记（Claude Code架构分析）
-### 核心观点
-- **Harness架构**：Agent的"Body"（工具+记忆+编排）比"Brain"（模型）更重要
-- **TAOR循环**：Think-Act-Observe-Repeat，运行时越笨越好，智能下沉到模型，确定性留给框架
-- **四类原语**：Read、Write、Execute、Connect，不要构建100个工具，给模型shell让它自己组合
+## Agent工程化学习笔记
+- **Harness架构**：Agent的Body（工具+记忆+编排）比Brain（模型）更重要
 - **Context管理**：稀缺资源，越干净越好，不是越大越好
 - **记忆是索引，不是存储**：能从代码库推导的信息不要存储
 
-### 启发
-1. 工具不在多，在于可组合
-2. 记忆要定期整理，过期信息是"负债"
-3. 权限设计是UX问题，不是单纯的安全问题
 ---
-*最后更新: 2026-04-02 15:15*
+*最后更新: 2026-04-04*
