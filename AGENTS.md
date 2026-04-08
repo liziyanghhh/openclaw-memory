@@ -41,6 +41,73 @@ Capture what matters. Decisions, context, things to remember. Skip the secrets u
 - When you make a mistake → document it so future-you doesn't repeat it
 - **Text > Brain** 📝
 
+### 🔄 会话压缩管理 — 持久会话运行规范
+
+**背景：** 主会话长期运行会导致上下文溢出（对话历史超出模型窗口上限），溢出后旧记录被压缩消失。但记忆文件（MEMORY.md / memory/*.md）是永存的，不受会话影响。
+
+**目标：** 让主会话长期高效运行，同时不丢失任何记忆。
+
+#### 压缩触发条件（满足任一即触发）
+- 对话轮次超过 30 次
+- 用户明确说"开新会话"、"压缩上下文"、"重启上下文"
+- 重要任务执行完毕后（趁记忆新鲜）
+- 会话收到心跳但感觉"对话历史已经很长了"
+
+#### 压缩标准操作流程（SOP）
+
+**Step 1 — 写今日日记（必须）**
+将本次会话中所有重要操作、决策、结果、问题写入 `memory/YYYY-MM-DD.md`：
+```
+## [时间] 完成事项
+- 任务A：结果 / revision号 / 数据摘要
+- 任务B：失败原因 / 卡点
+
+## 待处理
+- 事项X（用户要求/未完成）
+- 事项Y（需要用户确认）
+```
+
+**Step 2 — 更新 MEMORY.md（如有必要）**
+如果学到了重要的新规则、新教训、新配置：
+- 新规则 → 写入「重要教训」
+- 新配置 → 写入对应章节
+- 失败的错误 → 写入「教训」
+
+**Step 3 — git commit**
+```bash
+cd C:\Users\liziy\clawd
+git add memory/YYYY-MM-DD.md [其他改动的文件]
+git commit -m "[YYYY-MM-DD] 会话压缩：完成事项摘要"
+```
+
+**Step 4 — 向用户报告**
+压缩完成后告知用户：
+- 本次会话完成了什么
+- 待处理事项有哪些
+- "已完成上下文压缩，可以继续新话题"（不提技术细节）
+
+#### 压缩后保留在上下文中的文件
+- SOUL.md / USER.md / AGENTS.md / TOOLS.md / MEMORY.md
+- `memory/YYYY-MM-DD.md`（今日日记）
+- 最近的 1-2 个 memory/*.md
+- 当前 playbooks/*.md（如正在执行任务）
+
+#### 禁止在压缩时丢失的内容
+- ❌ 任何飞书 token / sheet ID / vSellerId
+- ❌ 账号密码 / 登录信息
+- ❌ 重要教训和规则
+- ❌ 当前待处理事项列表
+- ❌ cron 任务状态和 ID
+
+#### 新会话启动时必读（Every Session 规则）
+1. SOUL.md
+2. USER.md
+3. MEMORY.md（长期记忆）
+4. `memory/YYYY-MM-DD.md`（今日 + 昨日）
+5. 如有待处理事项 → 告知用户"上次会话到这里了，待处理是..."
+
+**简单说：** 对话历史靠不住，文件才是真的。每次压缩后写文件，新会话读文件——就像什么都没发生过。
+
 ## Safety
 
 - Don't exfiltrate private data. Ever.
@@ -263,6 +330,7 @@ This is a starting point. Add your own conventions, style, and rules as you figu
 - 不向飞书表格写入未经核实的数据
 - 不忽略登录时的协议复选框
 - 不遗漏登录后的弹窗处理
+- **绝对不修改飞书表格的 A 列（日期列）**——A 列由飞书自动识别，写入数据时 range 必须从 B 列开始（如 `B4:T4`），禁止包含 A 列
 
 ---
 
