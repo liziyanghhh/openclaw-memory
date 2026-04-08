@@ -10,97 +10,96 @@
 - **飞书链接域**: wcnjaznqdu9b.feishu.cn
 - **认证状态**: 用户已登录授权 (有效期至 2026-04-07)
 
-## lark-cli 安装配置
-### 安装位置
-- 主程序: `C:\Users\liziy\AppData\Roaming\npm\lark-cli.exe`
-- Skills: `C:\Users\liziy\.agents\skills\lark-*`
+## lark-cli 写入方法（必须用.ps1脚本）
 
-### lark-cli 常用命令
-```bash
-# 读取表格数据
-lark-cli sheets +read --spreadsheet-token <token> --sheet-id <sheet-id> --range <range>
+lark-cli 在命令行直接执行时 JSON 转义会出错，必须用 PowerShell 脚本：
 
-# 写入表格数据（用.bat批处理文件执行）
-lark-cli sheets +write --spreadsheet-token <token> --sheet-id <sheet-id> --range <range> --values <json>
+```powershell
+$vals = Get-Content 'C:\Users\liziy\clawd\fix_row.json' -Raw
+& 'C:\Users\liziy\AppData\Roaming\npm\lark-cli.exe' sheets +write --spreadsheet-token <token> --sheet-id <sheet-id> --range '<range>' --values $vals
 ```
 
-### 写入数据方法
-由于命令行转义问题，必须使用.bat批处理文件：
-```batch
-@echo off
-lark-cli sheets +write --spreadsheet-token <token> --sheet-id <sheet-id> --range "<range>" --values "<json>"
-```
-
----
-
-## 三个小红书广告任务 — 飞书表格对应关系（重要！）
+## 三个小红书广告任务 — 飞书表格对应关系
 
 ### ① 李文萱交通
 | 项目 | 值 |
 |------|-----|
-| Wiki | https://xayub55x0kw.feishu.cn/wiki/DuyywOXW5iPUAbk2JWOcKq1RnSe?sheet=nfuwzz |
 | Spreadsheet Token | `DuyywOXW5iPUAbk2JWOcKq1RnSe` |
 | Sheet ID | `nfuwzz` |
 | 账号入口 | https://ad.xiaohongshu.com/（直接登录，无需跳转） |
-| 子账户 | 无需搜索，直接是交通账号 |
-| vSellerId | （从URL直接读取） |
+| vSellerId | 从URL直接读取 |
 
 ### ② 李文萱大阪
 | 项目 | 值 |
 |------|-----|
-| Wiki | https://xayub55x0kw.feishu.cn/wiki/B63SwbWKCiILFzkhR5fcBdtDnTh?sheet=vrYnBm |
 | Spreadsheet Token | `S0srseEAXhIfANt26ztcaKb1nLg` |
 | Sheet ID | `vrYnBm` |
 | 账号入口 | https://partner.xiaohongshu.com/（需跳转聚光平台） |
-| 子账户搜索词 | "INNN大阪机场接送" |
-| 子账户选项 | YX--INNN大阪机场接送 |
 | vSellerId | `685918cfbc08dd00153675b3` |
 
 ### ③ 李文萱包易
 | 项目 | 值 |
 |------|-----|
-| Wiki | https://xayub55x0kw.feishu.cn/wiki/V2MDwr8Rki9DLGkLoRlc7Kpwnlc |
 | Spreadsheet Token | `M4Spsd0CGh0hh5tyae4cXdhWnRb` |
 | Sheet ID（基础报表写入） | `JLrqHb`（「26年4月」子表） |
 | Sheet ID（笔记报表覆盖） | `KlQEFs`（「2026笔记投放数据」子表） |
 | 账号入口 | https://partner.xiaohongshu.com/（需跳转聚光平台） |
-| 子账户搜索词 | "包易二奢入门陪跑" |
-| 子账户选项 | YX-包易二奢入门陪跑 |
-| vSellerId | **待确认：需从跳转后的URL获取** |
+| vSellerId | `6876255d8c7f5d0015870152` |
 
 ---
 
-## 重要教训
+## ⚠️ 最重要规则（必须记住！）
 
-### 1. Spreadsheet Token 不能混淆！
-- `S0srseEAXhIfANt26ztcaKb1nLg` = 大阪表（正确）
-- `OrXrsyBHAh4BJrtMQEEcjuhfnmd` = **废弃/错误的token**，曾导致大阪表数据混入交通数据
-- 每次写入前必须确认：当前任务的 token 是否与目标表格对应
+### 规则1：A列绝对禁止修改
+- **飞书表格A列（日期列）由飞书自动识别为日期格式，禁止任何写入操作**
+- 写入数据时 range 必须从 B 列开始（如 `B5:O5`），绝对不碰 A 列
+- A列格式：纯数字（如 46116），不加 `.1` 后缀，不加引号，不加文本
+- 行号 = Excel日期 - 46111（如 46116 = 第5行）
+- 三个表格列数：交通 B→V（21列），大阪 B→T（19列），包易 B→P（15列）
 
-### 2. 跳转聚光平台后必须验证 vSellerId
-大阪/包易从 partner 点「跳转→聚光平台」后，新标签页的 vSellerId 可能没有切换。
-验证步骤：
-1. 跳转后立即读取 URL 中的 `vSellerId`
-2. 与预期值比对（大阪=685918cfbc08dd00153675b3）
-3. 不匹配则找到账户下拉菜单切换账号，或直接停止任务
+### 规则2：只看主表合计行，忽略副表
+平台基础报表页面有**两个表格**：
 
-### 3. 日期格式
-- Excel日期：46113=4月1日，46114=4月2日，46115=4月3日
-- A列日期必须带.1后缀（如 46115.1）
-- 行号 = Excel日期 - 46111（如 46115 → 第4行）
+| 表格 | 位置 | 特征 | 处理方式 |
+|------|------|------|---------|
+| **主表合计行** | 上方，加粗行 | 含完整数据（留资数/留资成本等） | **只用这个** |
+| **副表明细行** | 下方 | 显示「暂无内容」| **完全忽略** |
 
-### 4. 点击率格式
-- 平台显示5.37% → 写入用 0.0537（÷100）
+- 副表显示「暂无内容」**不代表合计行里这些字段也是0**
+- 4月3日大阪、4月5日包易、4月4/5/6日交通的错误根源：看到副表为空就填0
+- **只看主表合计行，不管副表显示什么**
 
-### 5. lark-cli 安装问题
-原始npm安装会从GitHub下载二进制文件，中国网络可能超时。需要手动下载zip文件解压安装。
+### 规则3：百分比格式
+- 平台显示 "4.38%" → 写入用 "4.38"（常规数字，不写 0.0438）
+- 留资转化率：保持原样或用公式 `=N/L`
+
+### 规则4：vSellerId 验证
+跳转聚光平台后新标签页的 vSellerId 可能没有切换，必须从 URL 验证。
+
+---
+
+## cron 任务状态
+
+三个定时任务当前超时配置不足（600s），需要修复为 1200s/1800s：
+- 交通: `d8066a45-9b0f-4052-9b7e-b80a0c82ac69` → 600s→1200s
+- 大阪: `6e1b3029-c53e-4aa0-ab50-051be84d5707` → 600s→1200s
+- 包易: `3a8ec908-75b9-4597-b3fa-ba23673b915a` → 1200s→1800s
 
 ---
 
-## Agent工程化学习笔记
-- **Harness架构**：Agent的Body（工具+记忆+编排）比Brain（模型）更重要
-- **Context管理**：稀缺资源，越干净越好，不是越大越好
-- **记忆是索引，不是存储**：能从代码库推导的信息不要存储
+## 内置视频生成工具（video_generate）
+用户要求我利用 OpenClaw 内置的 `video_generate` 工具从文本生成视频。以后创意类需求（故事、视频脚本、可视化）可以主动使用这个工具，无需外部服务。
+
+## 2026-04-07 教训
+
+### 包易副本测试暴露的数据错误
+- **错误1（根因）**：看到副表「暂无内容」就误以为合计行留资数/留资成本也是0 → 实际是7和52.66
+- **错误2（低级）**：写入时错误修改了A列（46116.1），导致4月5日数据错位到4月4日，并污染了原有数据
+- **教训**：A列绝对不能写入，只写B到O列
+
+### 副本测试修正
+- 副本表 token: `L2gewE0btirGPekTsM9c7K1ZnSe`，sheet: `JLrqHb`
+- 4月4日(row5) 和 4月5日(row6) B到O列已修正
 
 ---
-*最后更新: 2026-04-04*
+*最后更新: 2026-04-07*
