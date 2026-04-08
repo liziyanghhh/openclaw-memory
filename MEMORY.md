@@ -155,10 +155,14 @@ $vals = Get-Content 'C:\Users\liziy\clawd\fix_row.json' -Raw
 
 ---
 
-## cron 任务状态（需检查修复）
-- 交通: `d8066a45-9b0f-4052-9b7e-b80a0c82ac69`
-- 大阪: `6e1b3029-c53e-4aa0-ab50-051be84d5707`
-- 包易: `3a8ec908-75b9-4597-b3fa-ba23673b915a`
+## cron 任务状态
+| 任务 | Cron ID | 执行时间 | sessionTarget |
+|------|---------|---------|--------------|
+| 交通 | `39fa853d-5dfc-47e3-bb63-b11a20f3d006` | 08:00 | main |
+| 大阪 | `c393ea9a-348b-4b33-a0e2-2aaac741e759` | 08:05 | main |
+| 包易 | `a44d26f6-51b0-430b-ace1-6587504d3f6d` | 08:10 | main |
+
+> ⚠️ 使用 sessionTarget=main，每次触发后 main session 被唤醒执行，有完整记忆，不走 subagent
 
 ---
 *最后更新: 2026-04-08*
