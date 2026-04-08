@@ -312,9 +312,7 @@ This is a starting point. Add your own conventions, style, and rules as you figu
 - 笔记报表覆盖 → sheet-id: KlQEFs（「2026笔记投放数据」子表）
 - 包易额外步骤：
   1. 基础报表数据 → JLrqHb（「26年4月」）
-  2. 笔记报表下载Excel → 覆盖到 KlQEFs（「2026笔记投放数据」）
-  3. 左侧导航 → 基础报表 → 笔记报表 → 日期3/1至昨天 → 汇总筛选 → 下载
-  4. 打开下载Excel → 全选复制 → 粘贴到 KlQEFs
+  2. 笔记报表步骤**暂时停用**（下载按钮问题待解决）
 
 #### 浏览器自动化关键规则
 - **登录时**：先检查是否有协议复选框，有则勾选，再点登录；没有则直接登录
