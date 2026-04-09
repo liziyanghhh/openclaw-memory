@@ -103,22 +103,32 @@ $vals = Get-Content 'C:\Users\liziy\clawd\fix_row.json' -Raw
 - 浏览器有缓存，首次登录时平台默认已预选日报，导致误以为不需要操作
 - 清除缓存或首次登录后，必须手动执行选日报这一步，否则合计行数据为空或不完整
 
-### 第二层：操作位置
-- 页面有**两个相同的3条横线图标**，分别属于不同区域：
-  - **上面（核心数据区域）**：对应「汇总/分日/分时/分周/分月」下拉
-  - **下面（数据明细区域）**：对应「日报」下拉 ← **要找的是这个**
-- 数据明细区域的3条横线图标位置：「细分模式 请选择」行，从右往左数第2个按钮
-- **ref=e30** = 数据明细区域的3条横线图标
+### 第二层：操作位置（实测精确版，2026-04-09 更新）
 
-### 第三层：操作方法（必须严格遵守）
-1. 滚动到「数据明细」区域
-2. 找到「细分模式」行从右往左第2个按钮（3条横线图标，ref=e30）
-3. **对该按钮执行 hover 悬浮操作**（鼠标移动到按钮上，**不要点击！不要点击！**）
-   - hover 会出日报下拉
-   - **click 会触发核心数据的「选择计划」面板（完全不同！）**
-4. 等待约3秒，下拉列表出现
-5. 在下拉列表中点击「**日报**」选项
-6. 等待页面切换，确认日报视图按钮（页面底部）高亮激活
+**数据明细区域「细分模式」行结构（实测 DOM 路径）：**
+```
+「细分模式」行（y≈865）
+  └─ 父容器（class: d-space d-space-horizontal d-space-align-center）
+       ├─ 子元素①：细分模式下拉（x≈1048, 宽240px）  ← ❌ 点击无效
+       ├─ 子元素②：32x32按钮（x=1320, y=220）      ← ❌ hover出自定义栏目popup
+       └─ 子元素③：32x32按钮（x=1364, y=220）      ← ✅ 3-lines图标，hover出日报popup
+```
+
+**关键区别：**
+- 3-lines图标在「细分模式」文字**右侧**，不在下拉框内
+- 两个32x32按钮紧挨着排列在「细分模式」下拉右侧
+- **x=1320按钮** hover → 自定义栏目 popup（包含 日报/复盘/自定义指标）
+- **x=1364按钮** hover → **日报 popup**（正确目标）
+
+**ref=e30** = 每次快照动态分配，不固定。必须通过 DOM 结构定位（见固化脚本）。
+
+### 第三层：操作方法（必须严格遵守，实测版）
+1. 滚动到「数据明细」区域（y≈865）
+2. 找到「细分模式」所在行（x=1048~1396）
+3. 定位该行**最右边**的 32x32 按钮（x=1364 附近）
+4. **hover 该按钮中心 3.5秒**（不要 click！click 会触发错误面板）
+5. popup 出现后在列表中点击「**日报**」
+6. 等待页面切换，验证：日报 Tab 高亮 + 合计行出现
 
 ### 三个账号均适用
 此步骤适用于交通、大阪、包易三个账号的基础报表操作，是通用步骤。
@@ -165,4 +175,43 @@ $vals = Get-Content 'C:\Users\liziy\clawd\fix_row.json' -Raw
 > ⚠️ 使用 sessionTarget=main，每次触发后 main session 被唤醒执行，有完整记忆，不走 subagent
 
 ---
-*最后更新: 2026-04-08*
+
+## 今日教训（2026-04-09）
+
+### 第4步操作的重大修正
+
+**之前错误原因：** 一直点击「细分模式」下拉本身（不响应），而非右侧的 3-lines 图标按钮。
+
+**实测结论：**
+- 「细分模式」下拉本身点击不弹出任何选项
+- 必须找它**右侧紧挨着的**3-lines图标按钮（32x32，x=1364附近）
+- 对准该按钮 hover 3.5秒 → popup出现 → 点「日报」
+
+**浏览器自动化的坑：**
+- OpenClaw browser tool 的 snapshot ref 每页刷新都会变，**不能依赖固定 ref**
+- CDP `mouseMoved` 到坐标在 Vue 项目上不一定触发 hover 事件（Vue 有自己的事件系统）
+- 实际可行的 hover 触发方式：**Playwright 的 `page.mouse.move()`**（原生 CDP Input 鼠标模拟）或 JS `element.click()`
+
+### 固化脚本状态
+
+**脚本路径（已提交 git）：**
+- `C:\Users\liziy\clawd\scripts\select_daily_report.pw.js` — Playwright 版本（❌ CDP连接后pages()为空，待解决）
+- `C:\Users\liziy\clawd\scripts\select_daily_report.cdp.js` — CDP 直连版本（❌ mouseMoved 不触发 Vue hover，待解决）
+
+**playwright-core 路径：**
+```
+C:/Users/liziy/AppData/Roaming/npm/node_modules/openclaw/node_modules/playwright-core
+```
+
+**已验证可用的 CDP 连接（Node.js 24 内置 WebSocket）：**
+```javascript
+const ws = new WebSocket('ws://127.0.0.1:18800/devtools/page/xxx');
+ws.addEventListener('open', () => { ... });
+```
+
+**下一步方向：**
+- Playwright 版本：解决 `browser.contexts()[0].pages()` 返回空的问题（可能需要用 `browser.contexts()[0].newPage()` 创建新 page 再 navigate）
+- CDP 直连版本：找到触发 Vue hover 的正确方法（尝试 `Runtime.callFunctionOn` 直接调用元素方法）
+
+---
+*最后更新: 2026-04-09*
