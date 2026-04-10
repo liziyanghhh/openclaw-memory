@@ -122,16 +122,32 @@ $vals = Get-Content 'C:\Users\liziy\clawd\fix_row.json' -Raw
 
 **ref=e30** = 每次快照动态分配，不固定。必须通过 DOM 结构定位（见固化脚本）。
 
-### 第三层：操作方法（必须严格遵守，实测版）
-1. 滚动到「数据明细」区域（y≈865）
-2. 找到「细分模式」所在行（x=1048~1396）
-3. 定位该行**最右边**的 32x32 按钮（x=1364 附近）
-4. **hover 该按钮中心 3.5秒**（不要 click！click 会触发错误面板）
-5. popup 出现后在列表中点击「**日报**」
-6. 等待页面切换，验证：日报 Tab 高亮 + 合计行出现
+### 第三层：日报popup的自动化限制（重要修正 2026-04-10）
 
-### 三个账号均适用
-此步骤适用于交通、大阪、包易三个账号的基础报表操作，是通用步骤。
+**实测结论：** CDP `Input.dispatchMouseEvent {type:'mouseMoved'}` 成功发送，但Vue的hover事件完全不响应。JS `dispatchEvent(new MouseEvent('mouseenter'))` 也无法触发。
+
+**解决方案：** 使用**核心数据区域**（页面顶部）的汇总数据，包含全部指标（消费/点击/私信等）。
+- 优点：无需hover，稳定可靠
+- 缺点：核心数据≠日报数据（可能存在差异，如大阪4/9评论差3倍、留资数差6倍）
+- 有条件时仍应优先选日报popup
+
+**CDP ws连接方式：**
+```javascript
+const { WebSocket } = require('C:/Users/liziy/AppData/Roaming/npm/node_modules/openclaw/node_modules/ws');
+const ws = new WebSocket('ws://127.0.0.1:18800/devtools/page/<targetId>');
+```
+
+### 多标签批量处理（2026-04-10新能力）
+
+用户预先打开多个账号报表页面（已登录+日期筛选好），我批量读取写入。
+**三重验证防混淆：** vSellerId（URL）+ 页面标题 + 账号选择器按钮文字。
+
+**已知账号映射：**
+| 账号 | vSellerId | 飞书表格 |
+|------|----------|---------|
+| 交通 | innntravel相关 | nfuwzz |
+| 大阪 | 685918cfbc08dd00153675b3 | vrYnBm |
+| 包易 | 6876255d8c7f5d0015870152 | JLrqHb |
 
 ---
 
@@ -209,9 +225,7 @@ const ws = new WebSocket('ws://127.0.0.1:18800/devtools/page/xxx');
 ws.addEventListener('open', () => { ... });
 ```
 
-**下一步方向：**
-- Playwright 版本：解决 `browser.contexts()[0].pages()` 返回空的问题（可能需要用 `browser.contexts()[0].newPage()` 创建新 page 再 navigate）
-- CDP 直连版本：找到触发 Vue hover 的正确方法（尝试 `Runtime.callFunctionOn` 直接调用元素方法）
+**状态（2026-04-10）：** 放弃Vue hover自动化，改为使用核心数据 + 批量多标签处理方案
 
 ---
 *最后更新: 2026-04-09*
